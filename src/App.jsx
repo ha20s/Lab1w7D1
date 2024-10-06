@@ -1,10 +1,11 @@
 import { useState , useEffect } from 'react'
 import './App.css'
+import { Link } from 'react-router-dom'
 
 function App() {
   const [info, setInfo] = useState([])
   const [showAdd , setShowAdd] = useState(false)
-  const [searched , setsearched] = useState('')
+  const [searched, setSearched] = useState('')
 
   const [addChar , setAdd] = useState({
     name: '',
@@ -45,7 +46,7 @@ function App() {
 
 
   const deleteChar= (id) => {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    fetch(`https://66e7e6a5b17821a9d9da6f39.mockapi.io/login/${id}`, {
       method: 'DELETE',
     })
     .then( res => {
@@ -55,9 +56,7 @@ function App() {
 
   const searchChar = (name) => {
 
-
   }
-
 
 
   return (
@@ -91,7 +90,7 @@ function App() {
 <input type="text" name="" id="" placeholder='serach' value={searched} className='p-2 rounded-2xl'
 onChange={(e) => searchChar(e.target.value)} />
 
-<button>Search</button>
+<button onClick={searchChar(searched)}>Search</button>
 </div>
 
       </div>
@@ -105,6 +104,8 @@ onChange={(e) => searchChar(e.target.value)} />
          <img src={item.image} alt="" className='rounded-xl w-80 h-80 object-cover' /> 
          <p className=''>Gender: {item.gender}</p>
          <button className='p-2 border-2 rounded border-red-600 '  onClick={() => deleteChar(item.id)} >Delete character</button>
+         <Link to="/update"><button className='p-2 border-2 rounded border-green-600 '
+         onClick={() => localStorage.setItem('id' , item.id)}  >Update character</button></Link>
        </div>
       ))}
 
